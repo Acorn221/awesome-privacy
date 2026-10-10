@@ -28,6 +28,7 @@ MIN_STARS = 100
 INACTIVE_DAYS = 90
 MIN_AGE_DAYS = 120
 AI_COMMIT_RATIO = 0.8
+BUS_FACTOR_RATIO = 0.96
 SPAM_AWESOME_THRESHOLD = 3
 SPAM_DISTINCT_REPO_THRESHOLD = 7
 SPAM_WINDOW_DAYS = 2
@@ -95,6 +96,9 @@ DUPLICATE_URL_MSG = (
 REPO_404_MSG = (
     "The GitHub repository linked in this submission returns a 404."
     " Please ensure the repo exists and is publicly accessible"
+)
+BUS_FACTOR_MSG = (
+    "This repository has a low bus factor, as maintained by a single contributor"
 )
 
 
@@ -199,6 +203,14 @@ def check_security_alerts(owner, repo, token):
                      label="dependabot")
     if alerts:
         return SECURITY_MSG
+    return None
+
+
+def check_bus_factor(owner, repo, token):
+    """Return BUS_FACTOR_MSG if a single human contributor made nearly all commits."""
+    share = utils.top_contributor_share(owner, repo, token, session=SESSION, timeout=TIMEOUT)
+    if share is not None and share >= BUS_FACTOR_RATIO:
+        return BUS_FACTOR_MSG
     return None
 
 
@@ -373,6 +385,11 @@ def check_repo_signals(diff, pr_user, token, pr_body=""):
 
         if SECURITY_MSG not in findings:
             finding = check_security_alerts(owner, repo, token)
+            if finding:
+                findings.append(finding)
+
+        if BUS_FACTOR_MSG not in findings:
+            finding = check_bus_factor(owner, repo, token)
             if finding:
                 findings.append(finding)
 

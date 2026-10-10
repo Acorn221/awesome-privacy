@@ -1,18 +1,23 @@
 """GitHub API helpers and read-only accessors for repo metadata."""
 
 import logging
+import re
 from datetime import datetime, timezone
 
 import requests
 
 from .http import DEFAULT_TIMEOUT, make_session
 
+# List of dirty AI users, we don't count them as real people because they have no soul
 AI_BOT_AUTHORS = [
     "noreply@anthropic.com",
     "devin-ai-integration[bot]",
     "copilot-swe-agent.github.com",
     "noreply@cursor.com",
 ]
+
+AI_CONTRIBUTOR_LOGINS = {"cursoragent", "openhands-agent"}
+_BOT_LOGIN_RE = re.compile(r"[-_]bot$|\[bot\]$")
 
 
 def parse_github_field(value):
@@ -97,6 +102,28 @@ def commit_has_bot(commit, bot_set):
             if any(bot in line for bot in bot_set):
                 return True
     return False
+
+
+def _is_human_contributor(contributor):
+    """Return True unless a contributor is a bot, automation account or AI agent."""
+    login = (contributor.get("login") or "").lower()
+    return (contributor.get("type") == "User"
+            and login not in AI_CONTRIBUTOR_LOGINS
+            and not _BOT_LOGIN_RE.search(login))
+
+
+def top_contributor_share(owner, repo, token, session=None, timeout=DEFAULT_TIMEOUT):
+    """Share of commits (0 to 1) by the top human contributor, ignoring bots and AI"""
+    contributors = gh_get(f"/repos/{owner}/{repo}/contributors", token, session=session,
+                          params={"per_page": 100}, timeout=timeout, label="contributors")
+    if not isinstance(contributors, list) or len(contributors) >= 100:
+        return None
+    try:
+        counts = [c["contributions"] for c in contributors if _is_human_contributor(c)]
+        return max(counts) / sum(counts) if counts else None
+    except Exception as exc:
+        logging.warning("[contributors] unexpected data for %s/%s: %s", owner, repo, exc)
+        return None
 
 
 def _days_since(iso_str):

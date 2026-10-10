@@ -305,6 +305,7 @@ Below is the full list of checks - it's basically the same as what is listed in 
 	- 🟡 **Not archived** - Repo must not be archived
 	- 🟡 **No security alerts** - No open critical/high Dependabot alerts
 	- 🟡 **Minimum stars** - Repo should have ≥100 stars
+	- 🟡 **Bus factor** - Flags if ≥96% of commits come from a single contributor (bots and AI excluded)
 	- 🟡 **Spam detection** - Flags if the author opened ≥3 PRs to other awesome-* repos, or PRs across ≥7 distinct repos, in the last 2 days
 - **Addition Info** (fyi only, no pass/fail requirements or warnings)
 	- 🔵 **Website check** (if has `url`) - Quickly checks for basic security requirements for website
