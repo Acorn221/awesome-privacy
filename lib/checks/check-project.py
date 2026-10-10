@@ -35,6 +35,7 @@ SPAM_WINDOW_DAYS = 2
 NEW_ACCOUNT_DAYS = 14
 
 SESSION = utils.make_session(user_agent=USER_AGENT)
+API_TOKEN = os.environ.get("API_TOKEN", "")
 
 LINK_MSG = (
     "The link(s) you included seem to be returning a 404."
@@ -74,8 +75,8 @@ ARCHIVED_MSG = (
     " Additions must be actively maintained"
 )
 SECURITY_MSG = (
-    "This project has open security vulnerabilities (critical or high severity)"
-    " flagged by GitHub Dependabot. Please verify these have been addressed"
+    "This project has published security advisories (critical or high severity)"
+    " with no patched version listed. Please verify these have been addressed"
 )
 SPAM_AWESOME_MSG = (
     "You have made many similar submissions on other awesome-* repos today."
@@ -200,13 +201,15 @@ def check_ai_commits(owner, repo, token):
     return None
 
 
-def check_security_alerts(owner, repo, token):
-    """Return SECURITY_MSG if the repo has open critical/high Dependabot alerts."""
-    alerts = _gh_get(f"/repos/{owner}/{repo}/dependabot/alerts", token,
-                     params={"state": "open", "severity": "critical,high", "per_page": 1},
-                     label="dependabot")
-    if alerts:
-        return SECURITY_MSG
+def check_security_alerts(owner, repo):
+    """Return SECURITY_MSG if the repo has unpatched critical/high security advisories."""
+    try:
+        report = utils.fetch_security_report(owner, repo, API_TOKEN, session=SESSION,
+                                             timeout=TIMEOUT, label=f"{owner}/{repo}")
+        if utils.unpatched_advisories(report)[1]:
+            return SECURITY_MSG
+    except Exception as exc:
+        logger.warning("check_security_alerts error for %s/%s: %s", owner, repo, exc)
     return None
 
 
@@ -395,7 +398,7 @@ def check_repo_signals(diff, pr_user, token, pr_body=""):
                 findings.append(finding)
 
         if SECURITY_MSG not in findings:
-            finding = check_security_alerts(owner, repo, token)
+            finding = check_security_alerts(owner, repo)
             if finding:
                 findings.append(finding)
 

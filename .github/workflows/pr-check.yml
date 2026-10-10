@@ -11,7 +11,6 @@ on:
 permissions:
   contents: read
   pull-requests: read
-  security-events: read
 
 jobs:
   pr-compliance:
@@ -147,6 +146,7 @@ jobs:
           PR_USER: ${{ github.event.pull_request.user.login }}
           PR_BODY: ${{ github.event.pull_request.body }}
           GITHUB_TOKEN: ${{ github.token }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: python lib/checks/check-project.py
       - name: Generate repo stats
         continue-on-error: true
