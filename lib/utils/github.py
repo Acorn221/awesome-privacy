@@ -67,6 +67,26 @@ def gh_get(path, token, session=None, params=None, timeout=DEFAULT_TIMEOUT, labe
     return None
 
 
+def _gh_graphql(query, variables, token, session=None, timeout=DEFAULT_TIMEOUT, label=""):
+    """POST a GitHub GraphQL query. Returns the `data` dict, else None (needs a token)"""
+    if not token:
+        return None
+    session = session or make_session()
+    try:
+        resp = session.post(
+            "https://api.github.com/graphql",
+            headers={"Authorization": f"bearer {token}"},
+            json={"query": query, "variables": variables}, timeout=timeout
+        )
+        body = resp.json() if resp.status_code == 200 else {}
+        if isinstance(body.get("data"), dict) and not body.get("errors"):
+            return body["data"]
+        logging.warning("[%s] GraphQL HTTP %d: %s", label, resp.status_code, body.get("errors"))
+    except Exception as exc:
+        logging.warning("[%s] GraphQL request error: %s", label, exc)
+    return None
+
+
 def fetch_repo(owner, repo, token, session=None):
     """Fetch GitHub repo metadata, returning None on any error."""
     return gh_get(f"/repos/{owner}/{repo}", token, session=session, label="repos")
@@ -124,6 +144,28 @@ def top_contributor_share(owner, repo, token, session=None, timeout=DEFAULT_TIME
     except Exception as exc:
         logging.warning("[contributors] unexpected data for %s/%s: %s", owner, repo, exc)
         return None
+
+
+_SECURITY_POLICY_QUERY = (
+    "query($owner: String!, $name: String!) {"
+    " repository(owner: $owner, name: $name) { isSecurityPolicyEnabled } }"
+)
+
+
+def has_security_contact(owner, repo, token, session=None, timeout=DEFAULT_TIMEOUT):
+    """True if a repo has private vulnerability reporting or a security policy"""
+    pvr = gh_get(f"/repos/{owner}/{repo}/private-vulnerability-reporting", token,
+                 session=session, timeout=timeout, label="pvr")
+    pvr = pvr.get("enabled") if isinstance(pvr, dict) else None
+    if pvr is True:
+        return True
+    data = _gh_graphql(_SECURITY_POLICY_QUERY, {"owner": owner, "name": repo}, token,
+                       session=session, timeout=timeout, label="security-policy")
+    repo_data = data.get("repository") if data else None
+    policy = repo_data.get("isSecurityPolicyEnabled") if isinstance(repo_data, dict) else None
+    if policy is True:
+        return True
+    return False if pvr is False and policy is False else None
 
 
 def _days_since(iso_str):

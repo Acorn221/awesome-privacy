@@ -100,6 +100,10 @@ REPO_404_MSG = (
 BUS_FACTOR_MSG = (
     "This repository has a low bus factor, as maintained by a single contributor"
 )
+SECURITY_POLICY_MSG = (
+    "This repository has neither a security policy nor private"
+    " vulnerability reporting enabled, so there's no clear way to report security issues"
+)
 
 
 def load_diff(path):
@@ -211,6 +215,13 @@ def check_bus_factor(owner, repo, token):
     share = utils.top_contributor_share(owner, repo, token, session=SESSION, timeout=TIMEOUT)
     if share is not None and share >= BUS_FACTOR_RATIO:
         return BUS_FACTOR_MSG
+    return None
+
+
+def check_security_policy(owner, repo, token):
+    """Return SECURITY_POLICY_MSG if the repo has no security policy or private reporting."""
+    if utils.has_security_contact(owner, repo, token, session=SESSION, timeout=TIMEOUT) is False:
+        return SECURITY_POLICY_MSG
     return None
 
 
@@ -390,6 +401,11 @@ def check_repo_signals(diff, pr_user, token, pr_body=""):
 
         if BUS_FACTOR_MSG not in findings:
             finding = check_bus_factor(owner, repo, token)
+            if finding:
+                findings.append(finding)
+
+        if SECURITY_POLICY_MSG not in findings:
+            finding = check_security_policy(owner, repo, token)
             if finding:
                 findings.append(finding)
 
