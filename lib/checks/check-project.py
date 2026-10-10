@@ -6,6 +6,7 @@ import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse
 
 import yaml
 
@@ -35,6 +36,11 @@ SPAM_WINDOW_DAYS = 2
 NEW_ACCOUNT_DAYS = 14
 TRACKER_LIMIT = 2
 POOR_PRIVACY_GRADES = {"D", "E"}
+# The API fetches and scans the page itself, so allow it longer to respond
+TRACKERS_TIMEOUT = 30
+# Code hosts and app stores, whose trackers belong to the platform rather than the project
+PLATFORM_HOSTS = ("github.com", "gitlab.com", "codeberg.org", "play.google.com",
+                  "apps.apple.com", "addons.mozilla.org", "chromewebstore.google.com")
 
 SESSION = utils.make_session(user_agent=USER_AGENT)
 API_TOKEN = os.environ.get("API_TOKEN", "")
@@ -118,6 +124,10 @@ DEGOOGLED_MSG = (
 PRIVACY_GRADE_MSG = (
     "The privacy policy for this service is graded as poor by ToS;DR,"
     " indicating serious privacy concerns"
+)
+WEB_TRACKERS_MSG = (
+    "The website appears to load third-party trackers ({}), according to"
+    " DuckDuckGo's tracker list. Please confirm these are justified"
 )
 
 
@@ -268,11 +278,40 @@ def check_privacy_grade(tosdr_id):
     return None
 
 
+def _is_platform(url):
+    """True if a URL is on a code host or app store, rather than the project's own site."""
+    host = (urlparse(url).hostname or "").lower()
+    return any(host == h or host.endswith(f".{h}") for h in PLATFORM_HOSTS)
+
+
+def check_website_trackers(url):
+    """Return WEB_TRACKERS_MSG naming the third-party trackers the website loads."""
+    try:
+        if _is_platform(url):
+            logger.info("Tracker check skipped for %s (not the project's own site)", url)
+            return None
+        report = utils.fetch_trackers(url, API_TOKEN, session=SESSION,
+                                      timeout=TRACKERS_TIMEOUT, label=url)
+        if not report:
+            return None
+        if _is_platform(report.get("finalUrl", "")):
+            logger.info("Tracker check skipped for %s (redirects to %s)", url, report["finalUrl"])
+            return None
+        domains = [t["domain"] for t in report.get("trackers", [])]
+        logger.info("Website trackers on %s: %s", url, ", ".join(domains) or "none found")
+        return WEB_TRACKERS_MSG.format(", ".join(domains)) if domains else None
+    except Exception as exc:
+        logger.warning("check_website_trackers error for %s: %s", url, exc)
+        return None
+
+
 def check_privacy_signals(diff):
-    """Check trackers, de-Googled support and ToS;DR grade for added services."""
+    """Check website trackers, Android trackers, de-Googled support and ToS;DR grade for additions."""
     findings = []
     for svc in get_services(diff, "added"):
         fields = svc.get("fields", {})
+        if fields.get("url"):
+            findings.append(check_website_trackers(fields["url"]))
         if fields.get("androidApp"):
             findings.extend(check_android_app(fields["androidApp"]))
         if fields.get("tosdrId"):

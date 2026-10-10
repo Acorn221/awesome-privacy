@@ -19,6 +19,7 @@ export const readEnv = (workersEnv?: Partial<AppEnv>): AppEnv => {
     CACHE: workersEnv?.CACHE,
     RATE_LIMIT: workersEnv?.RATE_LIMIT,
     ENRICH_RATE_LIMIT: workersEnv?.ENRICH_RATE_LIMIT,
+    TRACKERS_RATE_LIMIT: workersEnv?.TRACKERS_RATE_LIMIT,
     API_BASE: workersEnv?.API_BASE ?? env.API_BASE,
   }
 }

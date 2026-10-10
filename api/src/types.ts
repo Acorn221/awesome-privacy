@@ -66,6 +66,7 @@ export interface AppEnv {
   CACHE?: KVNamespace
   RATE_LIMIT?: RateLimiter
   ENRICH_RATE_LIMIT?: RateLimiter
+  TRACKERS_RATE_LIMIT?: RateLimiter
   API_BASE?: string
 }
 

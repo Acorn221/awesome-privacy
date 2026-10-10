@@ -95,6 +95,21 @@ describe('enrich rate limiting', () => {
     expect(calls.n).toBe(0)
   })
 
+  it('trackers uses its own limit, not the shared enrich one', async () => {
+    const enrich = denyLimiter()
+    const trackers = denyLimiter()
+    const res = await app.fetch(
+      new Request('http://localhost/v1/enrich/trackers?url=https://example.com'),
+      {
+        API_TOKEN: 'test',
+        ENRICH_RATE_LIMIT: enrich.limiter,
+        TRACKERS_RATE_LIMIT: trackers.limiter,
+      },
+    )
+    expect(res.status).toBe(429)
+    expect([enrich.calls.n, trackers.calls.n]).toEqual([0, 1])
+  })
+
   it('wrong token does not bypass the enrich rate limit', async () => {
     const { limiter, calls } = denyLimiter()
     const res = await app.fetch(

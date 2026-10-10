@@ -144,6 +144,20 @@ export const WebsiteReportSchema = z
   .object({})
   .openapi('WebsiteReport', { description: 'APIVoid url reputation report, passthrough' })
 
+// Third-party trackers found on a web page, via DuckDuckGo's Tracker Blocklist
+export const TrackersReportSchema = z
+  .object({
+    finalUrl: z.string(),
+    trackers: z.array(
+      z.object({
+        domain: z.string(),
+        owner: z.string(),
+        categories: z.array(z.string()),
+      }),
+    ),
+  })
+  .openapi('TrackersReport')
+
 export const DockerInfoSchema = z.object({}).openapi('DockerInfo', {
   description: 'Portainer template, Docker Hub metrics and generated run/compose usage',
 })

@@ -9,6 +9,8 @@ export const CACHE_DAYS = {
   security: 14,
   android: 60,
   website: 60,
+  trackers: 30,
+  trackerBlocklist: 7, // Shared DuckDuckGo blocklist used by the trackers route
   ios: 60,
   github: 7,
   discord: 14,

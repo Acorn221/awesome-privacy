@@ -19,6 +19,7 @@ const ALLOWED_HOSTS = new Set([
   'api.deps.dev',
   'plexus.techlore.tech',
   'hub.docker.com',
+  'staticcdn.duckduckgo.com',
 ])
 
 export interface FetchOpts {

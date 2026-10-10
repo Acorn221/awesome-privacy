@@ -21,6 +21,7 @@ import android from '@/routes/private/android'
 import discord from '@/routes/private/discord'
 import reddit from '@/routes/private/reddit'
 import website from '@/routes/private/website'
+import trackers from '@/routes/private/trackers'
 import security from '@/routes/private/security'
 import docker from '@/routes/private/docker'
 
@@ -46,6 +47,7 @@ const buildPrivate = () => {
   priv.route('/', discord)
   priv.route('/', reddit)
   priv.route('/', website)
+  priv.route('/', trackers)
   priv.route('/', security)
   priv.route('/', docker)
   return priv
@@ -66,9 +68,13 @@ export const buildApp = () => {
   // CORS everywhere. Public browse routes get the standard limit; enrich routes
   // are public too, but anonymous callers hit a stricter limit while a valid
   // bearer token bypasses it. Edge caching stays off for enrich (below).
+  // Trackers has its own bucket, so its page fetches never starve the other lookups.
   app.use('*', cors({ origin: '*' }))
   const publicLimiter = rateLimit()
   const enrichLimiter = rateLimit((env) => env.ENRICH_RATE_LIMIT ?? env.RATE_LIMIT)
+  const trackersLimiter = rateLimit(
+    (env) => env.TRACKERS_RATE_LIMIT ?? env.ENRICH_RATE_LIMIT ?? env.RATE_LIMIT,
+  )
   app.use('/v1/*', (c, next) => {
     if (!c.req.path.startsWith('/v1/enrich')) return publicLimiter(c, next)
     const authed = hasValidToken(c.env.API_TOKEN, c.req.header('authorization'))
@@ -76,6 +82,7 @@ export const buildApp = () => {
       throw new ApiError('UNAUTHORIZED', 'Invalid or missing bearer token', 401)
     }
     if (authed) return next()
+    if (c.req.path.startsWith('/v1/enrich/trackers')) return trackersLimiter(c, next)
     return enrichLimiter(c, next)
   })
   app.use('/v1/*', async (c, next) => {
