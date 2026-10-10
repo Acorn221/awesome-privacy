@@ -15,6 +15,7 @@ try:
         fetch_ios,
         fetch_privacy,
         fetch_security_report,
+        fetch_trackers,
         ios_app_id,
         ios_days_since_update,
         ios_rating,
@@ -28,6 +29,7 @@ try:
         commit_has_bot,
         fetch_repo,
         gh_get,
+        has_security_contact,
         parse_github_field,
         repo_age_days,
         repo_has_license,
@@ -35,6 +37,7 @@ try:
         repo_is_fork,
         repo_pushed_days_ago,
         repo_status,
+        top_contributor_share,
     )
     from .http import DEFAULT_TIMEOUT, DEFAULT_USER_AGENT, check_url, make_session
 except ImportError as exc:
@@ -56,7 +59,9 @@ __all__ = [
     "fetch_privacy",
     "fetch_repo",
     "fetch_security_report",
+    "fetch_trackers",
     "gh_get",
+    "has_security_contact",
     "ios_app_id",
     "ios_days_since_update",
     "ios_rating",
@@ -74,6 +79,7 @@ __all__ = [
     "repo_status",
     "setup_logging",
     "slugify",
+    "top_contributor_share",
     "tracker_count",
     "unpatched_advisories",
 ]

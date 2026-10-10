@@ -6,6 +6,7 @@ import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse
 
 import yaml
 
@@ -28,12 +29,21 @@ MIN_STARS = 100
 INACTIVE_DAYS = 90
 MIN_AGE_DAYS = 120
 AI_COMMIT_RATIO = 0.8
+BUS_FACTOR_RATIO = 0.96
 SPAM_AWESOME_THRESHOLD = 3
 SPAM_DISTINCT_REPO_THRESHOLD = 7
 SPAM_WINDOW_DAYS = 2
 NEW_ACCOUNT_DAYS = 14
+TRACKER_LIMIT = 2
+POOR_PRIVACY_GRADES = {"D", "E"}
+# The API fetches and scans the page itself, so allow it longer to respond
+TRACKERS_TIMEOUT = 30
+# Code hosts and app stores, whose trackers belong to the platform rather than the project
+PLATFORM_HOSTS = ("github.com", "gitlab.com", "codeberg.org", "play.google.com",
+                  "apps.apple.com", "addons.mozilla.org", "chromewebstore.google.com")
 
 SESSION = utils.make_session(user_agent=USER_AGENT)
+API_TOKEN = os.environ.get("API_TOKEN", "")
 
 LINK_MSG = (
     "The link(s) you included seem to be returning a 404."
@@ -73,8 +83,8 @@ ARCHIVED_MSG = (
     " Additions must be actively maintained"
 )
 SECURITY_MSG = (
-    "This project has open security vulnerabilities (critical or high severity)"
-    " flagged by GitHub Dependabot. Please verify these have been addressed"
+    "This project has published security advisories (critical or high severity)"
+    " with no patched version listed. Please verify these have been addressed"
 )
 SPAM_AWESOME_MSG = (
     "You have made many similar submissions on other awesome-* repos today."
@@ -95,6 +105,29 @@ DUPLICATE_URL_MSG = (
 REPO_404_MSG = (
     "The GitHub repository linked in this submission returns a 404."
     " Please ensure the repo exists and is publicly accessible"
+)
+BUS_FACTOR_MSG = (
+    "This repository has a low bus factor, as maintained by a single contributor"
+)
+SECURITY_POLICY_MSG = (
+    "This repository has neither a security policy nor private"
+    " vulnerability reporting enabled, so there's no clear way to report security issues"
+)
+TRACKERS_MSG = (
+    "The Android app contains multiple known trackers, according to Exodus Privacy."
+    " Please confirm these are justified"
+)
+DEGOOGLED_MSG = (
+    "The Android app is reported as broken on de-Googled Android"
+    " (without Google Play Services), according to Plexus"
+)
+PRIVACY_GRADE_MSG = (
+    "The privacy policy for this service is graded as poor by ToS;DR,"
+    " indicating serious privacy concerns"
+)
+WEB_TRACKERS_MSG = (
+    "The website appears to load third-party trackers ({}), according to"
+    " DuckDuckGo's tracker list. Please confirm these are justified"
 )
 
 
@@ -192,14 +225,98 @@ def check_ai_commits(owner, repo, token):
     return None
 
 
-def check_security_alerts(owner, repo, token):
-    """Return SECURITY_MSG if the repo has open critical/high Dependabot alerts."""
-    alerts = _gh_get(f"/repos/{owner}/{repo}/dependabot/alerts", token,
-                     params={"state": "open", "severity": "critical,high", "per_page": 1},
-                     label="dependabot")
-    if alerts:
-        return SECURITY_MSG
+def check_security_alerts(owner, repo):
+    """Return SECURITY_MSG if the repo has unpatched critical/high security advisories."""
+    try:
+        report = utils.fetch_security_report(owner, repo, API_TOKEN, session=SESSION,
+                                             timeout=TIMEOUT, label=f"{owner}/{repo}")
+        if utils.unpatched_advisories(report)[1]:
+            return SECURITY_MSG
+    except Exception as exc:
+        logger.warning("check_security_alerts error for %s/%s: %s", owner, repo, exc)
     return None
+
+
+def check_bus_factor(owner, repo, token):
+    """Return BUS_FACTOR_MSG if a single human contributor made nearly all commits."""
+    share = utils.top_contributor_share(owner, repo, token, session=SESSION, timeout=TIMEOUT)
+    if share is not None and share >= BUS_FACTOR_RATIO:
+        return BUS_FACTOR_MSG
+    return None
+
+
+def check_security_policy(owner, repo, token):
+    """Return SECURITY_POLICY_MSG if the repo has no security policy or private reporting."""
+    if utils.has_security_contact(owner, repo, token, session=SESSION, timeout=TIMEOUT) is False:
+        return SECURITY_POLICY_MSG
+    return None
+
+
+def check_android_app(pkg):
+    """Return findings for an Android app with multiple trackers or broken de-Googled support."""
+    findings = []
+    try:
+        app = utils.fetch_android_app(pkg, API_TOKEN, session=SESSION, timeout=TIMEOUT, label=pkg)
+        if (utils.tracker_count(app) or 0) >= TRACKER_LIMIT:
+            findings.append(TRACKERS_MSG)
+        if utils.degoogled_status(app) == "broken":
+            findings.append(DEGOOGLED_MSG)
+    except Exception as exc:
+        logger.warning("check_android_app error for %s: %s", pkg, exc)
+    return findings
+
+
+def check_privacy_grade(tosdr_id):
+    """Return PRIVACY_GRADE_MSG if the service's ToS;DR grade is poor."""
+    try:
+        policy = utils.fetch_privacy(tosdr_id, API_TOKEN, session=SESSION, timeout=TIMEOUT,
+                                     label=str(tosdr_id))
+        if utils.privacy_grade(policy) in POOR_PRIVACY_GRADES:
+            return PRIVACY_GRADE_MSG
+    except Exception as exc:
+        logger.warning("check_privacy_grade error for %s: %s", tosdr_id, exc)
+    return None
+
+
+def _is_platform(url):
+    """True if a URL is on a code host or app store, rather than the project's own site."""
+    host = (urlparse(url).hostname or "").lower()
+    return any(host == h or host.endswith(f".{h}") for h in PLATFORM_HOSTS)
+
+
+def check_website_trackers(url):
+    """Return WEB_TRACKERS_MSG naming the third-party trackers the website loads."""
+    try:
+        if _is_platform(url):
+            logger.info("Tracker check skipped for %s (not the project's own site)", url)
+            return None
+        report = utils.fetch_trackers(url, API_TOKEN, session=SESSION,
+                                      timeout=TRACKERS_TIMEOUT, label=url)
+        if not report:
+            return None
+        if _is_platform(report.get("finalUrl", "")):
+            logger.info("Tracker check skipped for %s (redirects to %s)", url, report["finalUrl"])
+            return None
+        domains = [t["domain"] for t in report.get("trackers", [])]
+        logger.info("Website trackers on %s: %s", url, ", ".join(domains) or "none found")
+        return WEB_TRACKERS_MSG.format(", ".join(domains)) if domains else None
+    except Exception as exc:
+        logger.warning("check_website_trackers error for %s: %s", url, exc)
+        return None
+
+
+def check_privacy_signals(diff):
+    """Check website trackers, Android trackers, de-Googled support and ToS;DR grade for additions."""
+    findings = []
+    for svc in get_services(diff, "added"):
+        fields = svc.get("fields", {})
+        if fields.get("url"):
+            findings.append(check_website_trackers(fields["url"]))
+        if fields.get("androidApp"):
+            findings.extend(check_android_app(fields["androidApp"]))
+        if fields.get("tosdrId"):
+            findings.append(check_privacy_grade(fields["tosdrId"]))
+    return [f for f in dict.fromkeys(findings) if f]
 
 
 def check_spam_prs(pr_user, token):
@@ -372,7 +489,17 @@ def check_repo_signals(diff, pr_user, token, pr_body=""):
                 findings.append(finding)
 
         if SECURITY_MSG not in findings:
-            finding = check_security_alerts(owner, repo, token)
+            finding = check_security_alerts(owner, repo)
+            if finding:
+                findings.append(finding)
+
+        if BUS_FACTOR_MSG not in findings:
+            finding = check_bus_factor(owner, repo, token)
+            if finding:
+                findings.append(finding)
+
+        if SECURITY_POLICY_MSG not in findings:
+            finding = check_security_policy(owner, repo, token)
             if finding:
                 findings.append(finding)
 
@@ -384,7 +511,7 @@ def main():
     try:
         pr_user = os.environ.get("PR_USER", "")
         token = os.environ.get("GITHUB_TOKEN", "")
-        logger.info("Checking project health: links, spam, account age, duplicate URLs, repo signals")
+        logger.info("Checking project health: links, spam, account age, duplicate URLs, privacy, repo signals")
         logger.info("PR_USER=%s, GITHUB_TOKEN=%s", pr_user or "(empty)", "present" if token else "MISSING")
 
         diff = load_diff(DIFF_PATH)
@@ -415,6 +542,7 @@ def main():
         if finding:
             findings.append(finding)
 
+        findings.extend(check_privacy_signals(diff))
         findings.extend(check_repo_signals(diff, pr_user, token, pr_body))
     except Exception as exc:
         logger.error("Unhandled error in main: %s", exc, exc_info=True)

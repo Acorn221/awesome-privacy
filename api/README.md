@@ -27,6 +27,7 @@ Enrichment data
 - iOS app versioning, size, reviews and info
 - Docker container info
 - Website security and hosting summary
+- Third-party trackers loaded by a website (via DuckDuckGo's tracker blocklist)
 - Community overview, from Discord, Reddit and Mastadon
 
 ---

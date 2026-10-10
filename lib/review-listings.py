@@ -18,6 +18,7 @@ Checks:
 - github-activity: github repo was pushed recently (needs token)
 - github-license: github repo has a license (needs token)
 - github-fork: github repo is not a fork (needs token)
+- github-bus-factor: no single human made 98%+ of commits, bots and AI ignored (needs token)
 - security-advisories: no open unpatched CVEs (needs API_TOKEN)
 - android-trackers: android app has few trackers (1 info, 2+ warn) (needs API_TOKEN)
 - ios-app: iOS app exists, is maintained and rated (missing/stale/low-rating warn) (needs API_TOKEN)
@@ -73,6 +74,7 @@ except ImportError as exc:
 MIN_DESC = 50
 MAX_DESC = 280
 MAX_DESC_HARD = 420
+BUS_FACTOR_RATIO = 0.98
 DEFAULT_WORKERS = 8
 DEFAULT_TIMEOUT = 10
 
@@ -419,6 +421,19 @@ def _github_license(entry: Entry, ctx: Context) -> Iterable[Finding]:
     data = _get_repo(entry, ctx)
     if data and not utils.repo_has_license(data):
         yield _finding(entry, "github-license", "warn", "repository has no declared license")
+
+
+@check("github-bus-factor", needs_github=True)
+def _github_bus_factor(entry: Entry, ctx: Context) -> Iterable[Finding]:
+    """No single human made 98%+ of commits (bots and AI agents ignored)."""
+    owner, repo = utils.parse_github_field(entry.service.get("github"))
+    if not owner:
+        return
+    share = utils.top_contributor_share(owner, repo, ctx.token,
+                                        session=ctx.session, timeout=ctx.timeout)
+    if share is not None and share >= BUS_FACTOR_RATIO:
+        yield _finding(entry, "github-bus-factor", "warn",
+                       f"low bus factor, {share:.0%} of commits are by a single contributor")
 
 
 @check("security-advisories", needs_api=True)

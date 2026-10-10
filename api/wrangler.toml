@@ -33,6 +33,14 @@ type = "ratelimit"
 namespace_id = "1002"
 simple = { limit = 10, period = 60 }
 
+# Own limit for anonymous /enrich/trackers requests, which each fetch a web page,
+# kept separate so they never use up the budget of the other enrich routes
+[[unsafe.bindings]]
+name = "TRACKERS_RATE_LIMIT"
+type = "ratelimit"
+namespace_id = "1003"
+simple = { limit = 10, period = 60 }
+
 # Scheduled cache warmer
 [triggers]
 crons = ["*/15 * * * *"]

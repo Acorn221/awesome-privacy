@@ -58,6 +58,12 @@ def fetch_privacy(tosdr_id, token, session=None, timeout=DEFAULT_TIMEOUT, label=
                       token=token, session=session, timeout=timeout, label=label)
 
 
+def fetch_trackers(url, token, session=None, timeout=DEFAULT_TIMEOUT, label=None):
+    """Fetch the third-party trackers a web page loads from the unified API. Returns JSON or None."""
+    return enrich_get("trackers", params={"url": url},
+                      token=token, session=session, timeout=timeout, label=label)
+
+
 def unpatched_advisories(report):
     """Return (low_medium, high_critical) counts of open, unpatched advisories."""
     items = (report.get("advisories") or {}).get("items") or [] if report else []
