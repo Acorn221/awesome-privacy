@@ -307,6 +307,9 @@ Below is the full list of checks - it's basically the same as what is listed in 
 	- 🟡 **Security policy** - Repo should have a security policy (SECURITY.md) and/or private vulnerability reporting enabled
 	- 🟡 **Minimum stars** - Repo should have ≥100 stars
 	- 🟡 **Bus factor** - Flags if ≥96% of commits come from a single contributor (bots and AI excluded)
+	- 🟡 **Trackers** - Android app should not have privacy-invasive trackers
+	- 🟡 **De-Googled** - Android app should not be broken without Google Play Services
+	- 🟡 **Privacy policy** - Privacy policy should not be graded poorly (via ToS;DR)
 	- 🟡 **Spam detection** - Flags if the author opened ≥3 PRs to other awesome-* repos, or PRs across ≥7 distinct repos, in the last 2 days
 - **Addition Info** (fyi only, no pass/fail requirements or warnings)
 	- 🔵 **Website check** (if has `url`) - Quickly checks for basic security requirements for website

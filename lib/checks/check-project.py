@@ -33,6 +33,8 @@ SPAM_AWESOME_THRESHOLD = 3
 SPAM_DISTINCT_REPO_THRESHOLD = 7
 SPAM_WINDOW_DAYS = 2
 NEW_ACCOUNT_DAYS = 14
+TRACKER_LIMIT = 2
+POOR_PRIVACY_GRADES = {"D", "E"}
 
 SESSION = utils.make_session(user_agent=USER_AGENT)
 API_TOKEN = os.environ.get("API_TOKEN", "")
@@ -104,6 +106,18 @@ BUS_FACTOR_MSG = (
 SECURITY_POLICY_MSG = (
     "This repository has neither a security policy nor private"
     " vulnerability reporting enabled, so there's no clear way to report security issues"
+)
+TRACKERS_MSG = (
+    "The Android app contains multiple known trackers, according to Exodus Privacy."
+    " Please confirm these are justified"
+)
+DEGOOGLED_MSG = (
+    "The Android app is reported as broken on de-Googled Android"
+    " (without Google Play Services), according to Plexus"
+)
+PRIVACY_GRADE_MSG = (
+    "The privacy policy for this service is graded as poor by ToS;DR,"
+    " indicating serious privacy concerns"
 )
 
 
@@ -226,6 +240,44 @@ def check_security_policy(owner, repo, token):
     if utils.has_security_contact(owner, repo, token, session=SESSION, timeout=TIMEOUT) is False:
         return SECURITY_POLICY_MSG
     return None
+
+
+def check_android_app(pkg):
+    """Return findings for an Android app with multiple trackers or broken de-Googled support."""
+    findings = []
+    try:
+        app = utils.fetch_android_app(pkg, API_TOKEN, session=SESSION, timeout=TIMEOUT, label=pkg)
+        if (utils.tracker_count(app) or 0) >= TRACKER_LIMIT:
+            findings.append(TRACKERS_MSG)
+        if utils.degoogled_status(app) == "broken":
+            findings.append(DEGOOGLED_MSG)
+    except Exception as exc:
+        logger.warning("check_android_app error for %s: %s", pkg, exc)
+    return findings
+
+
+def check_privacy_grade(tosdr_id):
+    """Return PRIVACY_GRADE_MSG if the service's ToS;DR grade is poor."""
+    try:
+        policy = utils.fetch_privacy(tosdr_id, API_TOKEN, session=SESSION, timeout=TIMEOUT,
+                                     label=str(tosdr_id))
+        if utils.privacy_grade(policy) in POOR_PRIVACY_GRADES:
+            return PRIVACY_GRADE_MSG
+    except Exception as exc:
+        logger.warning("check_privacy_grade error for %s: %s", tosdr_id, exc)
+    return None
+
+
+def check_privacy_signals(diff):
+    """Check trackers, de-Googled support and ToS;DR grade for added services."""
+    findings = []
+    for svc in get_services(diff, "added"):
+        fields = svc.get("fields", {})
+        if fields.get("androidApp"):
+            findings.extend(check_android_app(fields["androidApp"]))
+        if fields.get("tosdrId"):
+            findings.append(check_privacy_grade(fields["tosdrId"]))
+    return [f for f in dict.fromkeys(findings) if f]
 
 
 def check_spam_prs(pr_user, token):
@@ -420,7 +472,7 @@ def main():
     try:
         pr_user = os.environ.get("PR_USER", "")
         token = os.environ.get("GITHUB_TOKEN", "")
-        logger.info("Checking project health: links, spam, account age, duplicate URLs, repo signals")
+        logger.info("Checking project health: links, spam, account age, duplicate URLs, privacy, repo signals")
         logger.info("PR_USER=%s, GITHUB_TOKEN=%s", pr_user or "(empty)", "present" if token else "MISSING")
 
         diff = load_diff(DIFF_PATH)
@@ -451,6 +503,7 @@ def main():
         if finding:
             findings.append(finding)
 
+        findings.extend(check_privacy_signals(diff))
         findings.extend(check_repo_signals(diff, pr_user, token, pr_body))
     except Exception as exc:
         logger.error("Unhandled error in main: %s", exc, exc_info=True)
