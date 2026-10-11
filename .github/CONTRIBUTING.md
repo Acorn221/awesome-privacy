@@ -286,6 +286,7 @@ Below is the full list of checks - it's basically the same as what is listed in 
 	- 🔴 **Schema valid** - YAML must pass schema validation
 	- 🔴 **Required fields** - Must include `name`, `description`, `url`, `icon`
 	- 🟡 **Single entry** - Only one service addition per PR
+	- 🟡 **No mass changes** - Should not remove more than 5, or modify more than 10, existing listings
 	- 🟡 **Position** - New entries must go at the end of their section
 	- 🟡 **Open source** - Non-open-source submissions need justification
 	- 🟡 **Duplicate name** - Service name must not already exist

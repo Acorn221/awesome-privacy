@@ -19,6 +19,8 @@ DIFF_PATH = "/tmp/pr-diff.json"
 FINDINGS_PATH = "/tmp/findings-data.json"
 SCHEMA_ERRORS_PATH = "/tmp/schema-errors.json"
 MAX_SCHEMA_ERRORS_SHOWN = 10
+MAX_REMOVED_LISTINGS = 5
+MAX_MODIFIED_LISTINGS = 10
 
 REQUIRED_FIELDS = ("name", "description", "url", "icon")
 REPO_FIELDS = ("github", "codeberg", "git")
@@ -31,6 +33,12 @@ SCHEMA_MSG = (
     " additional and that it is following valid YAML syntax"
 )
 MULTIPLE_MSG = "Please make just one addition per pull request"
+MASS_CHANGE_MSG = (
+    "This PR removes {removed} and modifies {modified} existing listings."
+    " Please revert any changes which are unrelated to your submission."
+    " This usually happens when `awesome-privacy.yml` has been accidentally"
+    " truncated or overwritten with an outdated copy"
+)
 MISSING_TPL = (
     "Did you include all required fields? Looks like {fields} is missing or"
     f" invalid. Please see the [required fields]({CONTRIBUTING}#service-fields)"
@@ -165,11 +173,22 @@ def check_single_entry(diff):
     return None
 
 
+def check_mass_changes(diff):
+    """Return a finding if the diff removes or modifies too many existing services, excluding moves."""
+    services = diff.get("services", {})
+    added_names = {s.get("service") for s in services.get("added", [])}
+    removed = sum(1 for s in services.get("removed", []) if s.get("service") not in added_names)
+    modified = len(services.get("modified", []))
+    if removed > MAX_REMOVED_LISTINGS or modified > MAX_MODIFIED_LISTINGS:
+        return MASS_CHANGE_MSG.format(removed=removed, modified=modified)
+    return None
+
+
 def _added_keys(diff):
     """Build a set of (category, section, lowercase_name) for added services."""
     keys = set()
     for svc in diff.get("services", {}).get("added", []):
-        name = svc.get("fields", {}).get("name", "").lower().strip()
+        name = (svc.get("fields", {}).get("name") or "").lower().strip()
         keys.add((svc.get("category", ""), svc.get("section", ""), name))
     return keys
 
@@ -185,7 +204,7 @@ def build_name_index(head, diff):
         for sec in cat.get("sections", []):
             sn = sec.get("name", "")
             for svc in sec.get("services", []):
-                name = svc.get("name", "").lower().strip()
+                name = (svc.get("name") or "").lower().strip()
                 if name and (cn, sn, name) not in exclude:
                     index[name] = f"{cn} > {sn}"
     return index
@@ -202,7 +221,7 @@ def build_url_index(head, diff):
         for sec in cat.get("sections", []):
             sn = sec.get("name", "")
             for svc in sec.get("services", []):
-                name = svc.get("name", "").lower().strip()
+                name = (svc.get("name") or "").lower().strip()
                 if (cn, sn, name) in exclude:
                     continue
                 url = svc.get("url", "")
@@ -214,7 +233,7 @@ def build_url_index(head, diff):
 def check_duplicate_name(diff, name_index):
     """Return a finding if an added service name already exists in the YAML."""
     for svc in diff.get("services", {}).get("added", []):
-        name = svc.get("fields", {}).get("name", "").lower().strip()
+        name = (svc.get("fields", {}).get("name") or "").lower().strip()
         if name and name in name_index:
             return DUPLICATE_NAME_MSG.format(
                 name=svc["fields"]["name"], location=name_index[name],
@@ -297,6 +316,7 @@ def main():
 
             checks = [
                 ("single-entry", check_single_entry(diff), False),
+                ("mass-changes", check_mass_changes(diff), False),
                 ("required-fields", check_required_fields(diff, head), True),
                 ("position", check_position(diff, head), False),
                 ("open-source", check_open_source(diff), False),
