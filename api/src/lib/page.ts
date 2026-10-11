@@ -109,7 +109,8 @@ export const fetchPage = async (target: string): Promise<Page> => {
         url = new URL(location, url)
         continue
       }
-      if (!res.ok) {
+      // Only a 200 is the page itself, other 2xx are interstitials
+      if (res.status !== 200) {
         throw new ApiError(
           'UPSTREAM_ERROR',
           `${url.hostname} returned ${res.status}`,
