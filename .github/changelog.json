@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-10-11T19:39:21Z",
+  "generatedAt": "2026-10-11T23:11:23Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
+    "02978418d6d88ab26bbf05aa38f1877f42401f71",
     "02da4de50e6e90ed41d4d4c4fe5d8615a85a45a0",
     "0565145265ae63168dafcd48c5e13d8604691a10",
     "070d8a4d3a8f0ae499248ddcc4769bbf0fcf076f",
@@ -488,9 +489,34 @@
     839,
     840,
     841,
-    843
+    843,
+    848,
+    849
   ],
   "entries": [
+    {
+      "date": "2026-10-12",
+      "sha": "02978418d6d88ab26bbf05aa38f1877f42401f71",
+      "pr": {
+        "number": 851,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/851",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Koel",
+              "category": "Media",
+              "section": "Media Servers"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-11",
       "sha": "d857e372b770f5bf791465f0f704b8ed30043bc8",
@@ -7498,6 +7524,16 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-10-11",
+      "title": "Add BytesPDF to the Productivity > File Drop section in awesome-priva…",
+      "pr": {
+        "number": 849,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/849",
+        "author": "itx-z33shan",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/192359321?v=4"
+      }
+    },
     {
       "date": "2026-10-11",
       "title": "Adds Major Phones to Virtual Phone Numbers",
