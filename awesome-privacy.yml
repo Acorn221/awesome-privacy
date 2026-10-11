@@ -5331,8 +5331,22 @@ categories:
           on Linux, Windows and Mac. Replaces the official proprietary clients, though it
           still connects to your third-party store accounts.
     - name: Media Servers
-      alternativeTo: ['plex', 'emby', 'kodi', 'jellyfin', 'universal media server']
-      services: []
+      alternativeTo: ['plex', 'emby']
+      services:
+      - name: Jellyfin
+        url: https://jellyfin.org
+        icon: https://avatars.githubusercontent.com/u/45698031?s=256&v=4
+        openSource: true
+        followWith: Self-hosted
+        github: jellyfin/jellyfin
+        iosApp: https://apps.apple.com/us/app/jellyfin-mobile/id1480192618
+        androidApp: org.jellyfin.mobile
+        discordInvite: zHBxVSXdBV
+        subreddit: jellyfin
+        description: |
+          Self-hosted server for streaming your own films, TV, music and live TV to apps
+          on most devices. Volunteer-run, with no telemetry or paid tiers. Some media
+          endpoints don't require login, so avoid exposing it directly to the internet.
     - name: Music Players
       alternativeTo: ['spotify', 'apple music', 'google play music', 'amazon music', 'pandora']
       services: []
