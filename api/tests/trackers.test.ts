@@ -221,8 +221,8 @@ describe('isPrivateIp', () => {
   })
 })
 
-const html = (body: BodyInit) =>
-  new Response(body, { headers: { 'content-type': 'text/html' } })
+const html = (body: BodyInit, status = 200) =>
+  new Response(body, { status, headers: { 'content-type': 'text/html' } })
 const redirect = (location: string) =>
   new Response(null, { status: 301, headers: { location } })
 
@@ -285,6 +285,7 @@ describe('fetchPage', () => {
   it('rejects error statuses, non-HTML and network failures as 502', async () => {
     for (const respond of [
       async () => new Response('nope', { status: 404 }),
+      async () => html('<p>hi</p>', 202),
       async () =>
         new Response('%PDF', { headers: { 'content-type': 'application/pdf' } }),
       async () => Promise.reject(new TypeError('fetch failed')),
