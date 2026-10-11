@@ -5347,6 +5347,17 @@ categories:
           Self-hosted server for streaming your own films, TV, music and live TV to apps
           on most devices. Volunteer-run, with no telemetry or paid tiers. Some media
           endpoints don't require login, so avoid exposing it directly to the internet.
+      - name: Navidrome
+        url: https://www.navidrome.org
+        icon: https://avatars.githubusercontent.com/u/26692192?s=256&v=4
+        openSource: true
+        followWith: Self-hosted
+        github: navidrome/navidrome
+        discordInvite: xh7j7yF
+        subreddit: navidrome
+        description: |
+          Self-hosted music streaming server with a web player, and support for the many
+          Subsonic-compatible apps (there's no official mobile app)
     - name: Music Players
       alternativeTo: ['spotify', 'apple music', 'google play music', 'amazon music', 'pandora']
       services: []
