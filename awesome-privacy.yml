@@ -5358,6 +5358,18 @@ categories:
         description: |
           Self-hosted music streaming server with a web player, and support for the many
           Subsonic-compatible apps (there's no official mobile app)
+      - name: Koel
+        url: https://koel.dev
+        icon: https://avatars.githubusercontent.com/u/20983373
+        openSource: true
+        followWith: Self-hosted
+        github: koel/koel
+        androidApp: phanan.koel.app
+        iosApp: https://apps.apple.com/app/koel-player/id1576886982
+        description: |
+          Music streaming solution that turns your personal collection into a sleek,
+          web-based listening experience. With (smart) playlists, scrobbling, podcasts, radio,
+          Last.fm/Spotify/MusicBrainz integrations and an AI for natural-language commands.
     - name: Music Players
       alternativeTo: ['spotify', 'apple music', 'google play music', 'amazon music', 'pandora']
       services: []
