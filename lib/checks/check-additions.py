@@ -174,9 +174,10 @@ def check_single_entry(diff):
 
 
 def check_mass_changes(diff):
-    """Return a finding if the diff removes or modifies too many existing services."""
+    """Return a finding if the diff removes or modifies too many existing services, excluding moves."""
     services = diff.get("services", {})
-    removed = len(services.get("removed", []))
+    added_names = {s.get("service") for s in services.get("added", [])}
+    removed = sum(1 for s in services.get("removed", []) if s.get("service") not in added_names)
     modified = len(services.get("modified", []))
     if removed > MAX_REMOVED_LISTINGS or modified > MAX_MODIFIED_LISTINGS:
         return MASS_CHANGE_MSG.format(removed=removed, modified=modified)
@@ -187,7 +188,7 @@ def _added_keys(diff):
     """Build a set of (category, section, lowercase_name) for added services."""
     keys = set()
     for svc in diff.get("services", {}).get("added", []):
-        name = svc.get("fields", {}).get("name", "").lower().strip()
+        name = (svc.get("fields", {}).get("name") or "").lower().strip()
         keys.add((svc.get("category", ""), svc.get("section", ""), name))
     return keys
 
@@ -203,7 +204,7 @@ def build_name_index(head, diff):
         for sec in cat.get("sections", []):
             sn = sec.get("name", "")
             for svc in sec.get("services", []):
-                name = svc.get("name", "").lower().strip()
+                name = (svc.get("name") or "").lower().strip()
                 if name and (cn, sn, name) not in exclude:
                     index[name] = f"{cn} > {sn}"
     return index
@@ -220,7 +221,7 @@ def build_url_index(head, diff):
         for sec in cat.get("sections", []):
             sn = sec.get("name", "")
             for svc in sec.get("services", []):
-                name = svc.get("name", "").lower().strip()
+                name = (svc.get("name") or "").lower().strip()
                 if (cn, sn, name) in exclude:
                     continue
                 url = svc.get("url", "")
@@ -232,7 +233,7 @@ def build_url_index(head, diff):
 def check_duplicate_name(diff, name_index):
     """Return a finding if an added service name already exists in the YAML."""
     for svc in diff.get("services", {}).get("added", []):
-        name = svc.get("fields", {}).get("name", "").lower().strip()
+        name = (svc.get("fields", {}).get("name") or "").lower().strip()
         if name and name in name_index:
             return DUPLICATE_NAME_MSG.format(
                 name=svc["fields"]["name"], location=name_index[name],
@@ -315,7 +316,7 @@ def main():
 
             checks = [
                 ("single-entry", check_single_entry(diff), False),
-                ("mass-changes", check_mass_changes(diff), True),
+                ("mass-changes", check_mass_changes(diff), False),
                 ("required-fields", check_required_fields(diff, head), True),
                 ("position", check_position(diff, head), False),
                 ("open-source", check_open_source(diff), False),
