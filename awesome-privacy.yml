@@ -5331,7 +5331,7 @@ categories:
           on Linux, Windows and Mac. Replaces the official proprietary clients, though it
           still connects to your third-party store accounts.
     - name: Media Servers
-      alternativeTo: ['plex', 'emby', 'kodi', 'universal media server']
+      alternativeTo: ['plex', 'emby']
       services:
       - name: Jellyfin
         url: https://jellyfin.org
