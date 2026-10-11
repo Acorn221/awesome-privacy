@@ -126,8 +126,7 @@ PRIVACY_GRADE_MSG = (
     " indicating serious privacy concerns"
 )
 WEB_TRACKERS_MSG = (
-    "The website appears to load third-party trackers ({}), according to"
-    " DuckDuckGo's tracker list. Please confirm these are justified"
+    "The website appears to load third-party trackers ({})"
 )
 
 

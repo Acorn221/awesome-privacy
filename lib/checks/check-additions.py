@@ -19,6 +19,8 @@ DIFF_PATH = "/tmp/pr-diff.json"
 FINDINGS_PATH = "/tmp/findings-data.json"
 SCHEMA_ERRORS_PATH = "/tmp/schema-errors.json"
 MAX_SCHEMA_ERRORS_SHOWN = 10
+MAX_REMOVED_LISTINGS = 5
+MAX_MODIFIED_LISTINGS = 10
 
 REQUIRED_FIELDS = ("name", "description", "url", "icon")
 REPO_FIELDS = ("github", "codeberg", "git")
@@ -31,6 +33,12 @@ SCHEMA_MSG = (
     " additional and that it is following valid YAML syntax"
 )
 MULTIPLE_MSG = "Please make just one addition per pull request"
+MASS_CHANGE_MSG = (
+    "This PR removes {removed} and modifies {modified} existing listings."
+    " Please revert any changes which are unrelated to your submission."
+    " This usually happens when `awesome-privacy.yml` has been accidentally"
+    " truncated or overwritten with an outdated copy"
+)
 MISSING_TPL = (
     "Did you include all required fields? Looks like {fields} is missing or"
     f" invalid. Please see the [required fields]({CONTRIBUTING}#service-fields)"
@@ -162,6 +170,16 @@ def check_single_entry(diff):
                           if s.get("change_type") == "added_section"]
         if len(added_sections) > 1:
             return MULTIPLE_MSG
+    return None
+
+
+def check_mass_changes(diff):
+    """Return a finding if the diff removes or modifies too many existing services."""
+    services = diff.get("services", {})
+    removed = len(services.get("removed", []))
+    modified = len(services.get("modified", []))
+    if removed > MAX_REMOVED_LISTINGS or modified > MAX_MODIFIED_LISTINGS:
+        return MASS_CHANGE_MSG.format(removed=removed, modified=modified)
     return None
 
 
@@ -297,6 +315,7 @@ def main():
 
             checks = [
                 ("single-entry", check_single_entry(diff), False),
+                ("mass-changes", check_mass_changes(diff), True),
                 ("required-fields", check_required_fields(diff, head), True),
                 ("position", check_position(diff, head), False),
                 ("open-source", check_open_source(diff), False),
