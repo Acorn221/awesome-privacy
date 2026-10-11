@@ -1,6 +1,7 @@
 ---
 
 import type { WebsiteData } from '@utils/fetch-website-info';
+import type { WebsiteTracker } from '@utils/fetch-trackers-info';
 import { analyzeSecurityChecks } from '@utils/security-check-mappings';
 import FontAwesome from "@components/form/FontAwesome.svelte"
 import Button from '@components/form/Button.astro';
@@ -8,9 +9,10 @@ import Button from '@components/form/Button.astro';
 interface Props {
   websiteInfo: WebsiteData;
   url: string;
+  trackers?: WebsiteTracker[];
 };
 
-const { websiteInfo, url } = Astro.props;
+const { websiteInfo, url, trackers } = Astro.props;
 
 const categoryLabels: {[key: string]: string} = {
     is_torrent: 'Torrenting',
@@ -147,6 +149,31 @@ const webCheckLink = `https://web-check.xyz/check/${webCheckTarget}`;
     </div>
   </div>
   <div class="right">
+    {trackers && (
+      <>
+      <h4>Trackers</h4>
+      { trackers.length > 0 ? (
+        <>
+        <p class="explainer">
+          Loads {trackers.length} third-party tracker{trackers.length === 1 ? '' : 's'}
+        </p>
+        <ul>
+          {trackers.map((tracker) => (
+            <li class="all-bad" title={tracker.categories.join(', ') || undefined}>
+              <FontAwesome iconName="warning" /> {tracker.domain}
+              {tracker.owner && <span class="tracker-owner">{tracker.owner}</span>}
+            </li>
+          ))}
+        </ul>
+        </>
+      ) : (
+        <p class="all-good">
+          <FontAwesome iconName="noTrackers" />
+          No known trackers found
+        </p>
+      )}
+      </>
+    )}
     <h4>Blacklist Check</h4>
     <p>{websiteInfo.url_parts.host} was found on <b>{websiteInfo.domain_blacklist.detections}</b> blacklists</p>
     <ul>
@@ -244,6 +271,11 @@ const webCheckLink = `https://web-check.xyz/check/${webCheckTarget}`;
     font-size: var(--text-sm);
     opacity: var(--opacity-subtle);
     font-style: italic;
+  }
+  .tracker-owner {
+    margin-left: var(--space-xs);
+    font-size: var(--text-sm);
+    opacity: var(--opacity-soft);
   }
 
   .risk {
