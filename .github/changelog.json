@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T18:48:57Z",
+  "generatedAt": "2026-10-11T19:39:21Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -196,6 +196,7 @@
     "d3ce9466fbf255e744fe8ca4200a67d1f85c57dc",
     "d80c4314af6e5f0cc150d5e2b3cba7329932c7f2",
     "d835706239a1a20d3cd98d511a82038823dbef9e",
+    "d857e372b770f5bf791465f0f704b8ed30043bc8",
     "da7374ad750bd07bc42649cfdd09edd14901cc40",
     "dbb44f56681d9456e5808737b8c3873c0c7e8af5",
     "dc6bd7c8a78f3a9a054aa77327b040adf1ced610",
@@ -490,6 +491,29 @@
     843
   ],
   "entries": [
+    {
+      "date": "2026-10-11",
+      "sha": "d857e372b770f5bf791465f0f704b8ed30043bc8",
+      "pr": {
+        "number": 846,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/846",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Navidrome",
+              "category": "Media",
+              "section": "Media Servers"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-11",
       "sha": "79df8a27a82ce99b87b498fe9c3759ca70523d4e",
