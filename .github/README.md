@@ -114,6 +114,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Proxy Sites](#proxy-sites) (4)
 - **Media**
 	- [Gaming](#gaming) (1)
+	- [Media Servers](#media-servers) (1)
 	- [Video Players](#video-players) (1)
 	- [Photo Management](#photo-management) (2)
 	- [Podcast Players](#podcast-players) (1)
@@ -2230,7 +2231,8 @@ TikTok, and more.*
 
 ### Media Servers
 
-<p  align="center"><b>⚠️ This section is still a work in progress ⚠️</b><br /><i>Check back soon, or help us complete it by submitting a pull request</i></p>
+- **[<img src='https://avatars.githubusercontent.com/u/45698031?s=256&v=4' width='14' alt='' /> Jellyfin](https://jellyfin.org)** - Self-hosted server for streaming your own films, TV, music and live TV to apps on most devices. Volunteer-run, with no telemetry or paid tiers. Some media endpoints don't require login, so avoid expos[…](https://awesome-privacy.xyz/media/media-servers/jellyfin "View full Jellyfin report") 
+
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
 ---

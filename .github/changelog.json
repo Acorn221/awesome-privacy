@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T09:53:06Z",
+  "generatedAt": "2026-10-11T18:48:57Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -112,6 +112,7 @@
     "76d2c5dbf503ee8fd558fe5f0f65053d8337120e",
     "77a0e3eb620e1324b194d619d44cb6f4b6b17006",
     "78d83c0266281333143f9a0cb5e6d6af6439befd",
+    "79df8a27a82ce99b87b498fe9c3759ca70523d4e",
     "7a3286122e197a9b5836cfcd73fca768ccf6f50e",
     "7bac41fe2e60a38e22a3a723d4f0af28cfe0661d",
     "7dd8e9943c9a138710901ecf1bf4775b6167629a",
@@ -480,9 +481,38 @@
     830,
     831,
     833,
-    834
+    834,
+    837,
+    838,
+    839,
+    840,
+    841,
+    843
   ],
   "entries": [
+    {
+      "date": "2026-10-11",
+      "sha": "79df8a27a82ce99b87b498fe9c3759ca70523d4e",
+      "pr": {
+        "number": 845,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/845",
+        "author": "lissy93",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/1862727?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Jellyfin",
+              "category": "Media",
+              "section": "Media Servers"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-08",
       "sha": "6f269b704d33ad593bbc651c383005acf2e3254a",
@@ -7444,6 +7474,66 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-10-11",
+      "title": "Adds Major Phones to Virtual Phone Numbers",
+      "pr": {
+        "number": 843,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/843",
+        "author": "BlackSinger",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/46662082?v=4"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Add Nostos to E-Book Readers",
+      "pr": {
+        "number": 841,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/841",
+        "author": "Christian-Gennari",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/34597557?v=4"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Adds FYX Data Text Compare to developer-tools",
+      "pr": {
+        "number": 840,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/840",
+        "author": "FyxData",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/311955819?v=4"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Add FYX Data Text Compare in developer-tools",
+      "pr": {
+        "number": 839,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/839",
+        "author": "FyxData",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/311955819?v=4"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Update awesome-privacy.yml",
+      "pr": {
+        "number": 838,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/838",
+        "author": "FyxData",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/311955819?v=4"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "title": "Replace dead PodSync link with PigeonPod in YouTube Proxies section",
+      "pr": {
+        "number": 837,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/837",
+        "author": "aizhimou",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/19943786?v=4"
+      }
+    },
     {
       "date": "2026-10-06",
       "title": "Add HostDeFi to Crypto Exchanges",
