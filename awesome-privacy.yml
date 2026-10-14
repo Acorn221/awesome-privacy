@@ -5372,7 +5372,17 @@ categories:
           Last.fm/Spotify/MusicBrainz integrations and an AI for natural-language commands.
     - name: Music Players
       alternativeTo: ['spotify', 'apple music', 'google play music', 'amazon music', 'pandora']
-      services: []
+      services:
+      - name: Feishin
+        url: https://github.com/jeffvli/feishin
+        icon: https://raw.githubusercontent.com/jeffvli/feishin/refs/heads/development/media/feishin.svg
+        openSource: true
+        followWith: Self-hosted
+        github: jeffvli/feishin
+        description: |
+          A desktop or self-hosted web music player for Navidrome, Jellyfin and
+          OpenSubsonic compatible music servers. A fork with support for Plex is also
+          available.
 
     - name: Video Players
       alternativeTo: ['windows media player', 'quicktime', 'mplayer', 'kmplayer']
