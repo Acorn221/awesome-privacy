@@ -115,6 +115,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 - **Media**
 	- [Gaming](#gaming) (1)
 	- [Media Servers](#media-servers) (3)
+	- [Music Players](#music-players) (1)
 	- [Video Players](#video-players) (1)
 	- [Photo Management](#photo-management) (2)
 	- [Podcast Players](#podcast-players) (1)
@@ -2241,7 +2242,8 @@ TikTok, and more.*
 
 ### Music Players
 
-<p  align="center"><b>⚠️ This section is still a work in progress ⚠️</b><br /><i>Check back soon, or help us complete it by submitting a pull request</i></p>
+- **[<img src='https://raw.githubusercontent.com/jeffvli/feishin/refs/heads/development/media/feishin.svg' width='14' alt='' /> Feishin](https://github.com/jeffvli/feishin)** - A desktop or self-hosted web music player for Navidrome, Jellyfin and OpenSubsonic compatible music servers. A fork with support for Plex is also available. 
+
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
 ---
