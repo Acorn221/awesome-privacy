@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T09:02:46Z",
+  "generatedAt": "2026-10-17T22:54:39Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -100,6 +100,7 @@
     "61613ca195b2b09ccaa9658d054b3d478b4d8476",
     "639eb6794696341f32b582c50a0ecd7a91db52d1",
     "6659279e2aa0c05dbc1041a2d90434a2204ddac5",
+    "672a2fe1b5afe66de49f488c26cfb0092f777c54",
     "690d3e40da8b0ef98b93ba5bf066dc88a84027cb",
     "698e818f03fda883ec55a630bd9380d7cf214bb8",
     "69f6a2755a08caaa814201be36c9a809961b7f78",
@@ -492,9 +493,34 @@
     841,
     843,
     848,
-    849
+    849,
+    853,
+    854
   ],
   "entries": [
+    {
+      "date": "2026-10-17",
+      "sha": "672a2fe1b5afe66de49f488c26cfb0092f777c54",
+      "pr": {
+        "number": 855,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/855",
+        "author": "LunRos",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/33793109?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "HaGeZi DNS Blocklists",
+              "category": "Networking",
+              "section": "Host Block Lists"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-14",
       "sha": "5c6cdbc2027d820fe6a717696d8c144502fc1e64",
@@ -7548,6 +7574,26 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-10-17",
+      "title": "Add Snitch to Networking",
+      "pr": {
+        "number": 854,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/854",
+        "author": "aixisstudio",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/45413729?v=4"
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Add Data Saver to Mobile Apps",
+      "pr": {
+        "number": 853,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/853",
+        "author": "anubisproductions",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/324731546?v=4"
+      }
+    },
     {
       "date": "2026-10-11",
       "title": "Add BytesPDF to the Productivity > File Drop section in awesome-priva…",

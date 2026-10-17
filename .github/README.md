@@ -54,7 +54,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [DNS Clients](#dns-clients) (5)
 	- [Firewalls](#firewalls) (14)
 	- [Ad Blockers](#ad-blockers) (7)
-	- [Host Block Lists](#host-block-lists) (5)
+	- [Host Block Lists](#host-block-lists) (6)
 	- [Router Firmware](#router-firmware) (2)
 	- [Network Analysis](#network-analysis) (3)
 	- [Intrusion Detection](#intrusion-detection) (5)
@@ -897,6 +897,7 @@ detect certain content based on pattern matching
 - **[<img src='https://i.ibb.co/878BLq2/GAFAMSPLATTEXTNOGgit.png' width='14' alt='' /> No Google](https://github.com/nickspaargaren/no-google)** - Totally block all direct and indirect content from Google, Amazon, Facebook, Apple and Microsoft (or just some). 
 - **[<img src='https://icon.horse/icon/easylist.to' width='14' alt='' /> EasyList](https://easylist.to)** - Comprehensive list of domains for blocking tracking, social scripts, bad cookies and annoying stuff. 
 - **[<img src='https://d3pkfiqitivr8j.cloudfront.net/sitefiles/images/favicon.ico' width='14' alt='' /> iBlockList](https://www.iblocklist.com)** - Variety of lists (free and paid-for) for blocking content based on certain topics, inducing: spam, abuse, political, illegal, hijacked, bad peers and more. 
+- **[<img src='https://icon.horse/icon/github.com' width='14' alt='' /> HaGeZi DNS Blocklists](https://github.com/hagezi/dns-blocklists)** - A set of DNS blocklists that block ads, trackers, telemetry, phishing, malware, scams, and other unwanted domains network-wide. They work for any region and with every common DNS server, ad blocker, a[…](https://awesome-privacy.xyz/networking/host-block-lists/hagezi-dns-blocklists "View full HaGeZi DNS Blocklists report") 
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
