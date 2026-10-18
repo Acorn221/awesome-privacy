@@ -3571,15 +3571,6 @@ categories:
     - name: File Drop
       alternativeTo: ['wetransfer', 'send anywhere', 'filemail', 'smash']
       services:
-      - name: FileSend
-        url: https://filesend.standardnotes.org
-        github: standardnotes/FileSend
-        followWith: Web
-        description: |
-          Simple, encrypted file sharing, with a 500mb limit and 5-day retention. Files are secured with client-side AES-256
-          encryption and no IP address or device info is logged. Files are permanently deleted after download or after specified
-          duration. Developed by StandardNotes, and has built-in integration with the SN app.
-
       - name: OnionShare
         url: https://onionshare.org/
         github: micahflee/onionshare
