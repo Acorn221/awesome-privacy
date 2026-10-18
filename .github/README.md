@@ -71,7 +71,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Cloud Productivity Suites](#cloud-productivity-suites) (4)
 	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (6)
 	- [Secret Sharing](#secret-sharing) (3)
-	- [File Drop](#file-drop) (2)
+	- [File Drop](#file-drop) (1)
 	- [Browser Sync](#browser-sync) (4)
 	- [Habit Trackers](#habit-trackers) (1)
 	- [Secure Conference Calls](#secure-conference-calls) (2)
@@ -1203,7 +1203,6 @@ It is recommended to encrypt files on your client machine, before syncing to the
 
 ### File Drop
 
-- **[<img src='https://icon.horse/icon/filesend.standardnotes.org' width='14' alt='' /> FileSend](https://filesend.standardnotes.org)** - Simple, encrypted file sharing, with a 500mb limit and 5-day retention. Files are secured with client-side AES-256 encryption and no IP address or device info is logged. Files are permanently deleted[…](https://awesome-privacy.xyz/productivity/file-drop/filesend "View full FileSend report") 
 - **[<img src='https://icon.horse/icon/onionshare.org' width='14' alt='' /> OnionShare](https://onionshare.org/)** - An open source tool that lets you securely and anonymously share a file of any size, via Tor servers. OnionShare does require installing, but the benefit is that your files are transferred directly to[…](https://awesome-privacy.xyz/productivity/file-drop/onionshare "View full OnionShare report") 
 
 <details>

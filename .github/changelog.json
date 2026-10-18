@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T22:54:39Z",
+  "generatedAt": "2026-10-18T19:10:31Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -151,6 +151,7 @@
     "9d1bc2480ddd364c385f6ad6d9e0722202fe6205",
     "9d6dcf7f92c91b4a035a1e97761fbe5ec02e403f",
     "9ef9e90d30804239482c9a6e2903fd015b1224c4",
+    "a035bcc5a4b429e0e90143528c9034b7eb31c6a2",
     "a1e7944d48308f33d392ae33fb263cebfed85624",
     "a2cef5cbf9e19acbf192c97b59bb82e06a7f3a2a",
     "a539b1dd64eba2d9f68f3a63c4f2b170fc31fcef",
@@ -495,9 +496,35 @@
     848,
     849,
     853,
-    854
+    854,
+    856,
+    857,
+    858
   ],
   "entries": [
+    {
+      "date": "2026-10-18",
+      "sha": "a035bcc5a4b429e0e90143528c9034b7eb31c6a2",
+      "pr": {
+        "number": 860,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/860",
+        "author": "magical-heyrovsky",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/101060148?v=4"
+      },
+      "changes": {
+        "services": {
+          "removed": [
+            {
+              "name": "FileSend",
+              "category": "Productivity",
+              "section": "File Drop"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-17",
       "sha": "672a2fe1b5afe66de49f488c26cfb0092f777c54",
@@ -7574,6 +7601,36 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-10-18",
+      "title": "Adds Snitch to Firewalls",
+      "pr": {
+        "number": 858,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/858",
+        "author": "aixisstudio",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/45413729?v=4"
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Add TempMail10min to Online Tools (disposable email)",
+      "pr": {
+        "number": 857,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/857",
+        "author": "AlfazMahmudRizve",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/110009768?v=4"
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Add Monero One in Crypto Wallets",
+      "pr": {
+        "number": 856,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/856",
+        "author": "bwgh0",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/47620226?v=4"
+      }
+    },
     {
       "date": "2026-10-17",
       "title": "Add Snitch to Networking",
