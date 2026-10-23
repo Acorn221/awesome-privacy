@@ -3245,6 +3245,16 @@ categories:
           Keystore. Events are not end-to-end encrypted, so sync security depends on
           your provider.
 
+      - name: Calendula
+        url: https://codeberg.org/jlmakiola/calendula
+        codeberg: jlmakiola/calendula
+        androidApp: de.jeanlucmakiola.calendula
+        followWith: Android
+        icon: https://codeberg.org/jlmakiola/calendula/media/branch/main/fastlane/metadata/android/en-US/images/icon.png
+        description: |
+          A modern Material 3 Expressive calendar for Android. Reads, writes, and
+          reminds — on top of the system calendar, with zero network access.
+
     ########################
     ###### Scheduling ######
     ########################
