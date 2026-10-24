@@ -3763,6 +3763,48 @@ categories:
         followWith: Linux
         openSource: true
 
+    ###############################
+    ######## Office Suites ########
+    ###############################
+    - name: Office Suites
+      alternativeTo: ['microsoft office', 'microsoft 365', 'apple iwork', 'google workspace']
+      intro: |
+        Mainstream office suites use a lot of telemetry, which analyzes not
+        only how you're using the applications, but can also include parts
+        of your actual work. A privacy-respecting office suite works offline
+        and collects nothing about you.
+      services:
+      - name: Euro-Office
+        url: https://github.com/Euro-Office/DesktopEditors
+        github: Euro-Office/DesktopEditors
+        icon: https://raw.githubusercontent.com/Euro-Office/desktop-apps/refs/heads/main/win-linux/res/icons/app-icon-eo.svg
+        followWith: Linux, MacOS, Windows
+        openSource: true
+        description: |
+          With Euro-Office you can view, edit and work with others on
+          documents, spreadsheets, presentations and PDF files. You can
+          connect to a NextCloud server for real-time collaboration.
+      - name: LibreOffice
+        url: https://www.libreoffice.org
+        github: LibreOffice/core
+        icon: https://raw.githubusercontent.com/LibreOffice/core/refs/heads/master/sysui/desktop/icons/soffice.ico
+        followWith: Linux, MacOS, Windows
+        openSource: true
+        description: |
+          LibreOffice is a free and open-source office productivity software
+          suite with applications for word processing, spreadsheets,
+          presentations, vector graphics, formulas and database management.
+      - name: Collabora Office
+        url: https://www.collaboraonline.com/collabora-office
+        github: CollaboraOnline/online
+        icon: https://www.collaboraonline.com/favicon.ico
+        followWith: Linux, MacOS, Windows
+        openSource: true
+        description: |
+          Brings the online suite to the local desktop. Collabora is based on
+          LibreOffice, but comes with the simpler and more modern web interface
+          of Collabora Online.
+
   - name: Utilities
     sections:
     ##############################
