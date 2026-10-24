@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T16:51:34Z",
+  "generatedAt": "2026-10-24T17:01:53Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -130,6 +130,7 @@
     "8735336d7f209fa22305fc1fbf160280f5af5c17",
     "874dbdacae9c71cea100c85dc2b05bd348d20173",
     "8886ff026e379dee61b2472d8b722a6a26df6cd9",
+    "889b5a5e682a0f8d3f3a006812884a654f265e01",
     "88bc6299bfbaf786e134238c45ac4d9a6aa7de24",
     "88c0cb324458962c52691a05384aab459bf740b2",
     "8950c0b79c0fc336f579002466dcc2f8eaad43ea",
@@ -511,6 +512,29 @@
     870
   ],
   "entries": [
+    {
+      "date": "2026-10-24",
+      "sha": "889b5a5e682a0f8d3f3a006812884a654f265e01",
+      "pr": {
+        "number": 872,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/872",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Calendula",
+              "category": "Productivity",
+              "section": "Calendar"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-18",
       "sha": "a035bcc5a4b429e0e90143528c9034b7eb31c6a2",

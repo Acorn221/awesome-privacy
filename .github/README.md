@@ -64,7 +64,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Mail Servers](#mail-servers) (3)
 - **Productivity**
 	- [Digital Notes](#digital-notes) (9)
-	- [Calendar](#calendar) (4)
+	- [Calendar](#calendar) (5)
 	- [Scheduling](#scheduling) (2)
 	- [Task Management](#task-management) (3)
 	- [Backup and Sync](#backup-and-sync) (4)
@@ -1087,6 +1087,7 @@ providers that own and run their own infrastructure
 - **[<img src='https://raw.githubusercontent.com/nextcloud/calendar/refs/heads/main/img/favicon.png' width='14' alt='' /> Nextcloud Calendar](https://apps.nextcloud.com/apps/calendar)** - Calendar app for the self-hosted Nextcloud platform. Uses CalDAV for sync across devices. No E2E encryption support. 
 - **[<img src='https://raw.githubusercontent.com/FossifyOrg/Calendar/refs/heads/main/graphics/icon.webp' width='14' alt='' /> Fossify Calendar](https://www.fossify.org/)** - Fossify Calendar from the family of forked FOSS apps from the discontinued SimpleMobileTools. Simple, customizable, includes widgets. Note that CalDAV support is currently limited (see [#921](https://github.com/FossifyOrg/Calendar/issues/921)[…](https://awesome-privacy.xyz/productivity/calendar/fossify-calendar "View full Fossify Calendar report") 
 - **[<img src='https://raw.githubusercontent.com/KashCal/KashCal/main/images/kashcal-app.png' width='14' alt='' /> KashCal](https://kashcal.onekash.org)** - Offline-first Android calendar that syncs with iCloud, CalDAV and device calendars. No account, no telemetry; credentials are stored in the Android Keystore. Events are not end-to-end encrypted, so sy[…](https://awesome-privacy.xyz/productivity/calendar/kashcal "View full KashCal report") 
+- **[<img src='https://codeberg.org/jlmakiola/calendula/media/branch/main/fastlane/metadata/android/en-US/images/icon.png' width='14' alt='' /> Calendula](https://codeberg.org/jlmakiola/calendula)** - A modern Material 3 Expressive calendar for Android. Reads, writes, and reminds — on top of the system calendar, with zero network access. 
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
