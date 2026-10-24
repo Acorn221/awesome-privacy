@@ -2043,7 +2043,8 @@ crypto currency or cash, since neither can be easily tied back to your identity.
 
 > Spreadsheets remain a popular choice for managing budgets and financial planning.
 > [Collabora](https://nextcloud.com/collaboraonline) or
-> [OnlyOffice](https://nextcloud.com/onlyoffice) (on [NextCloud](https://nextcloud.com)),
+> [Euro-Office](https://nextcloud.com/office) on [NextCloud](https://nextcloud.com),
+> [Euro-Office Desktop Editors](https://github.com/Euro-Office/DesktopEditors),
 > [Libre Office](https://www.libreoffice.org) and [EtherCalc](https://ethercalc.net)
 > are popular open source spread sheet applications. [Mintable](https://github.com/kevinschaich/mintable)
 > allows you to auto-populate your spreadsheets from your financial data,
