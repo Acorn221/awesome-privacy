@@ -3796,7 +3796,7 @@ categories:
           presentations, vector graphics, formulas and database management.
       - name: Collabora Office
         url: https://www.collaboraonline.com/collabora-office
-        github: CollaboraOnline/online
+        github: CollaboraOnline/online.mirror
         icon: https://www.collaboraonline.com/favicon.ico
         followWith: Linux, MacOS, Windows
         openSource: true
