@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T17:01:53Z",
+  "generatedAt": "2026-10-25T10:55:39Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -69,6 +69,7 @@
     "41e72fe5b4c16c5ffced9d3b85e8ddb7c2011f5e",
     "4313ea5f7d58117889174d4d02f64127fa670dc9",
     "4396c163483fe7aaecb54e719ee5f3df690e146b",
+    "44ef65b68d9781ee1e07f80e20045c62f0fbb479",
     "45a87356b37a54a2d289d5018bdbcb5a56575a02",
     "45c13a7ff5af259b895a833e785e3f4a56b46a97",
     "46279446b308aa665734d590e4625f3955714b23",
@@ -512,6 +513,46 @@
     870
   ],
   "entries": [
+    {
+      "date": "2026-10-25",
+      "sha": "44ef65b68d9781ee1e07f80e20045c62f0fbb479",
+      "pr": {
+        "number": 873,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/873",
+        "author": "ltguillaume",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/4777345?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Collabora Office",
+              "category": "Productivity",
+              "section": "Office Suites"
+            },
+            {
+              "name": "Euro-Office",
+              "category": "Productivity",
+              "section": "Office Suites"
+            },
+            {
+              "name": "LibreOffice",
+              "category": "Productivity",
+              "section": "Office Suites"
+            }
+          ]
+        },
+        "sections": {
+          "added": [
+            {
+              "name": "Office Suites",
+              "category": "Productivity"
+            }
+          ]
+        },
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-24",
       "sha": "889b5a5e682a0f8d3f3a006812884a654f265e01",
@@ -9572,16 +9613,6 @@
         "url": "https://github.com/lissy93/awesome-privacy/pull/487",
         "author": "yncyrydybyl",
         "authorAvatar": "https://avatars.githubusercontent.com/u/104430?v=4"
-      }
-    },
-    {
-      "date": "2026-04-06",
-      "title": "Add anon.li Alias & Drop",
-      "pr": {
-        "number": 483,
-        "url": "https://github.com/Lissy93/awesome-privacy/pull/483",
-        "author": "anondotli",
-        "authorAvatar": "https://avatars.githubusercontent.com/u/250000431?v=4"
       }
     },
     {

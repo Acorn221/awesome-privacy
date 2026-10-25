@@ -77,6 +77,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Secure Conference Calls](#secure-conference-calls) (2)
 	- [Maps & Navigation](#maps--navigation) (1)
 	- [Accessibility](#accessibility) (1)
+	- [Office Suites](#office-suites) (3)
 - **Utilities**
 	- [Virtual Machines](#virtual-machines) (3)
 	- [PGP Managers](#pgp-managers) (8)
@@ -1311,6 +1312,21 @@ in the cloud, sending everything you say or read to a remote server. Privacy-res
 alternatives keep this processing on your device, so your input never leaves it.
 
 - **[<img src='https://vocalinux.com/icon-192x192.png' width='14' alt='' /> Vocalinux](https://vocalinux.com/)** - Offline system-wide voice dictation for Linux (X11 and Wayland). Uses local models (whisper.cpp, Whisper, or VOSK) so microphone audio never leaves the device. Tray app with hotkeys; GPLv3. Currently[…](https://awesome-privacy.xyz/productivity/accessibility/vocalinux "View full Vocalinux report") 
+
+<p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
+
+---
+
+### Office Suites
+
+Mainstream office suites use a lot of telemetry, which analyzes not
+only how you're using the applications, but can also include parts
+of your actual work. A privacy-respecting office suite works offline
+and collects nothing about you.
+
+- **[<img src='https://raw.githubusercontent.com/Euro-Office/desktop-apps/refs/heads/main/win-linux/res/icons/app-icon-eo.svg' width='14' alt='' /> Euro-Office](https://github.com/Euro-Office/DesktopEditors)** - With Euro-Office you can view, edit and work with others on documents, spreadsheets, presentations and PDF files. You can connect to a NextCloud server for real-time collaboration. 
+- **[<img src='https://raw.githubusercontent.com/LibreOffice/core/refs/heads/master/sysui/desktop/icons/soffice.ico' width='14' alt='' /> LibreOffice](https://www.libreoffice.org)** - LibreOffice is a free and open-source office productivity software suite with applications for word processing, spreadsheets, presentations, vector graphics, formulas and database management. 
+- **[<img src='https://www.collaboraonline.com/favicon.ico' width='14' alt='' /> Collabora Office](https://www.collaboraonline.com/collabora-office)** - Brings the online suite to the local desktop. Collabora is based on LibreOffice, but comes with the simpler and more modern web interface of Collabora Online. 
 
 <p align="right"><sup><a href="#top">⬆️ [Back to Top]</a></sub></p>
 
