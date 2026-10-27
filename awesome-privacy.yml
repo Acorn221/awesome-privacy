@@ -3531,6 +3531,9 @@ categories:
           and MS Office. 10GB free, on ISO27001 servers (DE).
 
       notableMentions: |
+        url: https://proton.me/drive
+        description: Proton Drive offers users free open source encrypted storage for safeguarding their personal files. Made in Switzerland and bound by strict European data privacy laws.
+        
         An alternative option, is to use a cloud computing provider, and implement
         the syncing functionality yourself, and encrypt data locally before
         uploading it - this may work out cheaper in some situations.
