@@ -69,7 +69,7 @@ corporations, governments, and hackers from logging, storing or selling your per
 	- [Task Management](#task-management) (3)
 	- [Backup and Sync](#backup-and-sync) (4)
 	- [Cloud Productivity Suites](#cloud-productivity-suites) (4)
-	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (6)
+	- [Encrypted Cloud Storage](#encrypted-cloud-storage) (7)
 	- [Secret Sharing](#secret-sharing) (3)
 	- [File Drop](#file-drop) (1)
 	- [Browser Sync](#browser-sync) (4)
@@ -1177,6 +1177,7 @@ It is recommended to encrypt files on your client machine, before syncing to the
 - **[<img src='https://internxt.com/favicon.ico' width='14' alt='' /> Internxt](https://internxt.com/)** - Store your files in total privacy. Internxt Drive is a zero-knowledge cloud storage service based on best-in-class privacy and security. Made in Spain. Open-source mobile and desktop apps. 10GB FREE a[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/internxt "View full Internxt report") 
 - **[<img src='https://icon.horse/icon/filen.io' width='14' alt='' /> FileN](https://filen.io/)** - Zero knowledge end-to-end encrypted affordable cloud storage made in Germany. Open-source mobile and desktop apps. 10GB FREE with paid plans starting at €0.92/month for 100GB. 
 - **[<img src='https://icon.horse/icon/koofr.eu' width='14' alt='' /> Koofr](https://koofr.eu)** - GDPR compliant storage (web/desktop/mobile/WebDAV/RClone) with a sensible privacy policy. Has optional open-source client-side encryption, compatible with RClone. Can connect to other cloud services a[…](https://awesome-privacy.xyz/productivity/encrypted-cloud-storage/koofr "View full Koofr report") 
+- **[<img src='https://drive.proton.me/assets/android-chrome-256x256.png' width='14' alt='' /> Proton Drive](https://proton.me/drive)** - End-to-end encrypted cloud storage from the Proton suite, based in Switzerland. Open source apps for web, desktop and mobile, with file sharing and photo backup. Free plan available. 
 
 <details>
 <summary>✳️ <b>Notable Mentions</b></summary>

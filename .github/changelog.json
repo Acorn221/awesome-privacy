@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T10:55:39Z",
+  "generatedAt": "2026-10-29T12:41:48Z",
   "processedShas": [
     "02125ec429ec1ce9c5acdec1604703cb058a7887",
     "02231fb0a59ee43f93c6d0143640284cb7587d71",
@@ -185,6 +185,7 @@
     "bcc2a64a33c0bb4a07a4faa37288c324d0153bd7",
     "bd021a41c3c5858c0474bb407ad406d5c4664aaa",
     "bdea1fa26b4d87c0c156b8e2aca3431ca6dd29f2",
+    "be0198284a09c8bb1e83d118361390f20c16696b",
     "c151cbac982e8a79424da7041cf422009a8d5f87",
     "c34654569457ae084fbde06c77d2b80c55aba43a",
     "c58dec4d6fc4226b3365df168b68baefc02e12ac",
@@ -510,9 +511,40 @@
     865,
     868,
     869,
-    870
+    870,
+    874,
+    875,
+    876,
+    877,
+    879,
+    880,
+    881,
+    882
   ],
   "entries": [
+    {
+      "date": "2026-10-29",
+      "sha": "be0198284a09c8bb1e83d118361390f20c16696b",
+      "pr": {
+        "number": 878,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/878",
+        "author": "BuildingTech24",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/257283328?v=4"
+      },
+      "changes": {
+        "services": {
+          "added": [
+            {
+              "name": "Proton Drive",
+              "category": "Productivity",
+              "section": "Encrypted Cloud Storage"
+            }
+          ]
+        },
+        "sections": {},
+        "categories": {}
+      }
+    },
     {
       "date": "2026-10-25",
       "sha": "44ef65b68d9781ee1e07f80e20045c62f0fbb479",
@@ -7675,6 +7707,86 @@
     }
   ],
   "rejections": [
+    {
+      "date": "2026-10-29",
+      "title": "Adds AltQuick to Crypto Exchanges",
+      "pr": {
+        "number": 882,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/882",
+        "author": "StevenSteiner",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/44127122?v=4"
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "title": "Add VaelMail in Encrypted Email",
+      "pr": {
+        "number": 881,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/881",
+        "author": "vaelmail",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/349334834?v=4"
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "title": "Add VaelMail in Encrypted Email",
+      "pr": {
+        "number": 880,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/880",
+        "author": "vaelmail",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/349334834?v=4"
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Add BrowserStay to Metadata Removal",
+      "pr": {
+        "number": 879,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/879",
+        "author": "probir-sarkar",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/81101648?v=4"
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "title": "Add MurMur to encrypted messaging",
+      "pr": {
+        "number": 877,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/877",
+        "author": "Oleg2796996",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/285666170?v=4"
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Add Utilvo (Client-Side WebAssembly Document Utilities)",
+      "pr": {
+        "number": 876,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/876",
+        "author": "utilvo",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/329901979?v=4"
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "title": "Adds QuikTools Hub to Online Tools",
+      "pr": {
+        "number": 875,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/875",
+        "author": "umarfarooqufs007-cmyk",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/345558908?v=4"
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "title": "Adds Vestige to Mail Security Tools",
+      "pr": {
+        "number": 874,
+        "url": "https://github.com/lissy93/awesome-privacy/pull/874",
+        "author": "Threnark",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/207032823?v=4"
+      }
+    },
     {
       "date": "2026-10-24",
       "title": "Add PrivatePDF (client-side PDF tools) under Productivity",
