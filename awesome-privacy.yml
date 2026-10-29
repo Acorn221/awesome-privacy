@@ -1603,7 +1603,7 @@ categories:
       - name: PGP Tools
         url: https://github.com/Am-I-Being-Pwned/PGP-Tools
         github: Am-I-Being-Pwned/PGP-Tools
-        icon: https://raw.githubusercontent.com/Am-I-Being-Pwned/PGP-Tools/refs/heads/main/.github/logo.png
+        icon: https://raw.githubusercontent.com/Am-I-Being-Pwned/PGP-Tools/refs/heads/main/apps/pgp/public/icon-128.png
         description: |
           Browser extension to encrypt, decrypt, sign and verify OpenPGP messages, plus age encryption.
           Uses Sequoia-PGP in WASM, keys are encrypted at rest with a password or passkey,
